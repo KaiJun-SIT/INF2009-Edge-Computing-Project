@@ -3,8 +3,8 @@ import cv2
 from tqdm import tqdm
 
 # Set the path to the images captured by the left and right cameras
-pathL = "./edge_stereo_cam_embeddedAI/images/stereoL/"
-pathR = "./edge_stereo_cam_embeddedAI/images/stereoR/"
+pathL = "./INF2009-EDGE-COMPUTING-PROJECT/images/stereoL/"
+pathR = "./INF2009-EDGE-COMPUTING-PROJECT/images/stereoR/"
 
 print("Extracting image coordinates of respective 3D pattern ....\n")
 
@@ -96,7 +96,7 @@ Right_Stereo_Map= cv2.initUndistortRectifyMap(new_mtxR, distR, rect_r, proj_mat_
 
 
 print("Saving parmesans ......")
-cv_file = cv2.FileStorage("./edge_stereo_cam_embeddedAI/data/calib_generate_params_py.xml", cv2.FILE_STORAGE_WRITE)
+cv_file = cv2.FileStorage("./INF2009-EDGE-COMPUTING-PROJECT/data/calib_generate_params_py.xml", cv2.FILE_STORAGE_WRITE)
 cv_file.write("Left_Stereo_Map_x",Left_Stereo_Map[0])
 cv_file.write("Left_Stereo_Map_y",Left_Stereo_Map[1])
 cv_file.write("Right_Stereo_Map_x",Right_Stereo_Map[0])

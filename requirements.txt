@@ -10,3 +10,4 @@ python-dateutil>=2.8.1
 six>=1.15.0
 imutils>=0.5.4
 python-vlc>=3.0.21203
+tqdm>=4.60.0
