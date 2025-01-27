@@ -38,7 +38,7 @@ CamL.release()
 
 CamL= cv2.VideoCapture(CamL_id, cv2.CAP_DSHOW)
 CamR= cv2.VideoCapture(CamR_id, cv2.CAP_DSHOW)
-output_path = "./edge_stereo_cam_embeddedAI/images/"
+output_path = "./INF2009-EDGE-COMPUTING-PROJECT/images/"
 print("Capturing images for calibration...")
 
 start = time.time()

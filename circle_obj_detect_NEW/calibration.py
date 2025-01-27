@@ -3,7 +3,7 @@ import numpy as np
 
 def calibrate(frameR, frameL):
    # Load calibration parameters
-   cv_file = cv2.FileStorage("./edge_stereo_cam_embeddedAI/data/calib_generate_params_py.xml", cv2.FILE_STORAGE_READ)
+   cv_file = cv2.FileStorage("./INF2009-EDGE-COMPUTING-PROJECT/data/calib_generate_params_py.xml", cv2.FILE_STORAGE_READ)
    
    Left_Stereo_Map_x = cv_file.getNode("Left_Stereo_Map_x").mat()
    Left_Stereo_Map_y = cv_file.getNode("Left_Stereo_Map_y").mat()
