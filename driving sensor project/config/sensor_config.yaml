@@ -1,0 +1,129 @@
+# config/sensor_config.yaml
+sensors:
+  mmwave_front:
+    type: "mmwave"
+    port: "/dev/ttyUSB0"
+    baud_rate: 921600
+    angle_coverage: 100
+    max_range: 100  # meters
+    update_rate: 50  # Hz
+    power_consumption: 2.5  # watts
+
+  mmwave_side_left:
+    type: "mmwave"
+    port: "/dev/ttyUSB1"
+    baud_rate: 921600
+    angle_coverage: 100
+    max_range: 50
+    update_rate: 50
+    power_consumption: 2.5
+
+  mmwave_side_right:
+    type: "mmwave"
+    port: "/dev/ttyUSB2"
+    baud_rate: 921600
+    angle_coverage: 100
+    max_range: 50
+    update_rate: 50
+    power_consumption: 2.5
+
+  ultrasonic_front_left:
+    type: "ultrasonic"
+    gpio_trigger: 23
+    gpio_echo: 24
+    max_range: 4  # meters
+    update_rate: 20
+    power_consumption: 0.1
+
+  ultrasonic_front_right:
+    type: "ultrasonic"
+    gpio_trigger: 17
+    gpio_echo: 18
+    max_range: 4
+    update_rate: 20
+    power_consumption: 0.1
+
+  ultrasonic_rear_left:
+    type: "ultrasonic"
+    gpio_trigger: 5
+    gpio_echo: 6
+    max_range: 4
+    update_rate: 20
+    power_consumption: 0.1
+
+  ultrasonic_rear_right:
+    type: "ultrasonic"
+    gpio_trigger: 13
+    gpio_echo: 19
+    max_range: 4
+    update_rate: 20
+    power_consumption: 0.1
+
+  camera:
+    type: "camera"
+    device_id: 0
+    resolution: [640, 480]
+    fps: 30
+    power_consumption: 1.5
+
+  ir_front:
+    type: "ir"
+    gpio_pin: 16
+    max_range: 2  # meters
+    update_rate: 20
+    power_consumption: 0.1
+
+  ir_rear:
+    type: "ir"
+    gpio_pin: 20
+    max_range: 2
+    update_rate: 20
+    power_consumption: 0.1
+
+modes:
+  driving:
+    required_sensors:
+      - mmwave_front
+      - mmwave_side_left
+      - mmwave_side_right
+      - camera
+      - ir_front
+    optional_sensors:
+      - ultrasonic_front_left
+      - ultrasonic_front_right
+
+  parking:
+    required_sensors:
+      - ultrasonic_front_left
+      - ultrasonic_front_right
+      - ultrasonic_rear_left
+      - ultrasonic_rear_right
+      - camera
+      - ir_rear
+    optional_sensors:
+      - mmwave_front
+
+thresholds:
+  collision_warning:
+    critical: 1.0  # meters
+    warning: 2.0
+    alert: 3.0
+
+  blind_spot:
+    detection: 3.0  # meters
+    warning: 2.0
+
+  parking:
+    min_space: 2.5  # meters
+    safe_distance: 0.3
+
+resource_limits:
+  cpu_threshold: 80  # percentage
+  memory_threshold: 75  # percentage
+  temperature_threshold: 80  # celsius
+
+logging:
+  level: "INFO"
+  file: "system.log"
+  max_size: 10485760  # 10MB
+  backup_count: 5
