@@ -1,0 +1,18 @@
+To run the code, install the required packages in requirements.txt or just pip install it 
+
+Join the below channels to receive updates from the Smart Lift Monitoring System
+
+https://t.me/+3XyAPBBfLithNGNl Anomaly detected
+https://t.me/+nvyuTK3Q3500OWVl Priority 1
+https://t.me/+wynh_1nAxfc3OTY9 Priority 2
+https://t.me/+rsnarE2qn1A2YTJl Priority 3
+
+Other info:
+
+SLMS Anomaly detection channel Chat ID : -1002589162188
+
+SLMS Priority 1 Channel Chat ID : -1002531314734
+
+SLMS Priority 2 Channel Chat ID : -1002500092362
+
+SLMS Priority 3 Channel Chat ID : -1002647870078
