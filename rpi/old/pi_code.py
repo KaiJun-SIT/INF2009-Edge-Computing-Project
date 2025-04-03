@@ -11,7 +11,7 @@ print("YOLOv8-Pose model loaded successfully")
 
 # **Confidence Threshold for Keypoint-Based Detection**
 DETECTION_THRESHOLD = 0.5  # Lower to detect more humans
-ANOMALY_THRESHOLD = 0.6  # Adjust based on real-world testing
+# ANOMALY_THRESHOLD = 0.6  # Adjust based on real-world testing
 
 # **Anomaly Detection Function**
 def detect_anomaly(results):
@@ -37,14 +37,14 @@ def detect_anomaly(results):
             avg_knee_height = (left_knee[1] + right_knee[1]) / 2
             avg_hip_height = (left_hip[1] + right_hip[1]) / 2
             if avg_knee_height > avg_hip_height * 1.2:
-                print("Possible anomaly.")
+                print("Possible anomaly: Squatting")
                 return True  
 
             # **Check for Hand-to-Hand Proximity (Possible Fighting, Theft)**
             wrist_distance = np.linalg.norm(left_wrist - right_wrist)
             shoulder_distance = np.linalg.norm(left_shoulder - right_shoulder)
             if wrist_distance < shoulder_distance * 0.5:
-                print("Possible anomaly.")
+                print("Possible anomaly: Hand-to-Hand Proximity")
                 return True  
 
     return False  # No anomaly detected
@@ -52,34 +52,38 @@ def detect_anomaly(results):
 # **Real-time Detection Loop**
 cap = cv2.VideoCapture(0)
 
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        print(" Error: Could not read frame.")
-        break
+try:
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            print(" Error: Could not read frame.")
+            break
 
-    # **Run YOLO Pose Detection**
-    results = model(frame, conf=DETECTION_THRESHOLD)
+    	# **Run YOLO Pose Detection**
+        results = model(frame, conf=DETECTION_THRESHOLD)
 
-    # **Detect anomaly based on keypoints**
-    is_anomaly = detect_anomaly(results)
+    	# **Detect anomaly based on keypoints**
+        is_anomaly = detect_anomaly(results)
 
-    # **Display "Normal" or "Anomaly Detected"**
-    status_text = "Anomaly Detected!" if is_anomaly else "Normal"
-    color = (0, 0, 255) if is_anomaly else (0, 255, 0)
-    
-    # **Overlay text on frame**
-    cv2.putText(frame, status_text, (10, 50),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
+    	# **Display "Normal" or "Anomaly Detected"**
+	#status_text = "Anomaly Detected!" if is_anomaly else "Normal"
+	#color = (0, 0, 255) if is_anomaly else (0, 255, 0)
 
-    # **Draw Keypoints**
-    annotated_frame = results[0].plot()
-    
-    # **Show the frame**
-    cv2.imshow("Real-time Anomaly Detection", annotated_frame)
+    	# **Overlay text on frame**
+	#cv2.putText(frame, status_text, (10, 50),
+        	#cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
+    	# **Draw Keypoints**
+	#annotated_frame = results[0].plot()
 
-cap.release()
-cv2.destroyAllWindows()
+    	# **Show the frame**
+	#cv2.imshow("Real-time Anomaly Detection", annotated_frame)
+
+    	#if cv2.waitKey(1) & 0xFF == ord("q"):
+        	#break
+
+except KeyboardInterrupt:
+        print("Ctrl-C detected. Stopping...")
+finally:
+        cap.release()
+	#cv2.destroyAllWindows()

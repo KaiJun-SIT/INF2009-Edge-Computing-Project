@@ -116,6 +116,7 @@ def detect_anomaly(results):
             avg_hip_height = (left_hip[1] + right_hip[1]) / 2
             if avg_knee_height > avg_hip_height * 1.2:
                 anomaly_type = "Squatting (possible urination or sitting in restricted area)"
+                print(f"ANOMALY DETECTED: {anomaly_type}")
                 return True, anomaly_type, confidence
                 
             # Check for Hand-to-Hand Proximity
@@ -123,6 +124,7 @@ def detect_anomaly(results):
             shoulder_distance = np.linalg.norm(left_shoulder - right_shoulder)
             if wrist_distance < shoulder_distance * 0.5:
                 anomaly_type = "Hand-to-Hand Proximity (possible fighting or theft)"
+                print(f"ANOMALY DETECTED: {anomaly_type}")
                 return True, anomaly_type, confidence
                 
     return False, anomaly_type, confidence
@@ -303,4 +305,7 @@ async def main():
 
 # Run the main function
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
